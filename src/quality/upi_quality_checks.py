@@ -72,15 +72,21 @@ def validate_upi_data(df):
     failed = df["status"] == "FAILED"
 
     checks["Failed transactions have reasons"] = (
-        df.loc[failed, "failure_reason"].notna().all()
-    )
+    df.loc[failed, "failure_reason"]
+    .astype("string")
+    .str.strip()
+    .ne("")
+    .fillna(False)
+    .all()
+   )
 
     # 7. P2M transactions must have merchant names
     p2m = df["transaction_type"] == "P2M"
 
     checks["P2M transactions have merchant names"] = (
-        df.loc[p2m, "merchant_name"].notna().all()
-    )
+    df.loc[p2m, "merchant_name"].notna().all()
+    and df.loc[p2m, "merchant_name"].astype("string").str.strip().ne("").all()
+   )
 
     # 8. Valid transaction types
     valid_types = {"P2P", "P2M"}
@@ -91,11 +97,13 @@ def validate_upi_data(df):
 
     # 9. Required identifiers
     checks["No missing transaction identifiers"] = (
-        df[["transaction_id", "payer_id", "payee_id"]]
-        .notna()
-        .all()
-        .all()
-    )
+    df[["transaction_id", "payer_id", "payee_id"]]
+    .astype("string")
+    .apply(lambda col: col.str.strip().ne(""))
+    .fillna(False)
+    .all()
+    .all()
+)
 
     # 10. Valid currency
     checks["Valid currency"] = (
