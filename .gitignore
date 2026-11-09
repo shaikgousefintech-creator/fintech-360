@@ -218,3 +218,52 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+
+# Logs
+*.log
+
+# Build files
+dist/
+build/
+
+# FINTECH 360 generated data and databases
+data/warehouse/database/
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.bak
+
+# FINTECH 360 generated pipeline outputs
+data/processed/
+data/curated/
+data/rejected/
+data/warehouse/
+
+# Keep synthetic raw source data
+!data/raw/
