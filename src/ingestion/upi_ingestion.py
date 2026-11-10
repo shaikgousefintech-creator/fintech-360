@@ -81,7 +81,9 @@ def validate_data(df):
     )
 
     df["transaction_timestamp"] = pd.to_datetime(
-        df["transaction_timestamp"], errors="coerce"
+        df["transaction_timestamp"],
+        format="%Y-%m-%d %H:%M:%S.%f",
+        errors="coerce"
     )
 
     # Store rejection reasons

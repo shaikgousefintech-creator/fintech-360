@@ -56,6 +56,7 @@ def validate_upi_data(df):
     # 4. Valid timestamps
     timestamps = pd.to_datetime(
         df["transaction_timestamp"],
+        format="%Y-%m-%d %H:%M:%S.%f",
         errors="coerce"
     )
 
