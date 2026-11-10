@@ -10,6 +10,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
+
 PIPELINE_STAGES = [
     (
         "DATA INGESTION",
@@ -34,8 +35,25 @@ PIPELINE_STAGES = [
     (
         "MART QUALITY VALIDATION",
         PROJECT_ROOT / "src" / "quality" / "upi_mart_quality_check.py"
+    ),
+    (
+        "UPI FAILURE ANALYSIS",
+        PROJECT_ROOT / "src" / "analytics" / "upi_failure_analysis.py"
+    ),
+    (
+        "UPI TIME ANALYSIS",
+        PROJECT_ROOT / "src" / "analytics" / "upi_time_analysis.py"
+    ),
+    (
+        "UPI ANALYTICS",
+        PROJECT_ROOT / "src" / "analytics" / "upi_analytics.py"
+    ),
+    (
+        "UPI BUSINESS INSIGHTS",
+        PROJECT_ROOT / "src" / "analytics" / "upi_business_insights.py"
     )
 ]
+
 
 
 # --------------------------------------------------
