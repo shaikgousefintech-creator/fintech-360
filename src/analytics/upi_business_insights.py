@@ -28,35 +28,93 @@ OUTPUT_DIR = PROJECT_ROOT / "data" / "warehouse" / "upi"
 # 2. LOAD EXISTING ANALYTICAL OUTPUTS
 # --------------------------------------------------
 
+
 def load_analytics():
 
     files = {
-        "banks": "upi_bank_failure_analysis.csv",
-        "apps": "upi_app_failure_analysis.csv",
-        "reasons": "upi_failure_reason_analysis.csv",
-        "hourly": "upi_hourly_analysis.csv",
-        "weekdays": "upi_weekday_analysis.csv"
+        "banks": {
+            "file": "upi_bank_failure_analysis.csv",
+            "columns": [
+                "payer_bank",
+                "total_transactions",
+                "failed_transactions",
+                "failure_rate_percentage"
+            ]
+        },
+        "apps": {
+            "file": "upi_app_failure_analysis.csv",
+            "columns": [
+                "payment_app",
+                "total_transactions",
+                "failed_transactions",
+                "failure_rate_percentage"
+            ]
+        },
+        "reasons": {
+            "file": "upi_failure_reason_analysis.csv",
+            "columns": [
+                "failure_reason",
+                "failed_transactions",
+                "failure_percentage"
+            ]
+        },
+        "hourly": {
+            "file": "upi_hourly_analysis.csv",
+            "columns": [
+                "transaction_hour",
+                "total_transactions",
+                "failed_transactions",
+                "failure_rate_percentage"
+            ]
+        },
+        "weekdays": {
+            "file": "upi_weekday_analysis.csv",
+            "columns": [
+                "transaction_day_of_week",
+                "total_transactions",
+                "failed_transactions",
+                "failure_rate_percentage"
+            ]
+        }
     }
 
     data = {}
 
-    for name, file_name in files.items():
+    for name, config in files.items():
 
-        file_path = INPUT_DIR / file_name
+        file_path = INPUT_DIR / config["file"]
 
         if not file_path.exists():
             raise FileNotFoundError(
                 f"Required analytics file not found: {file_path}"
             )
 
-        data[name] = pd.read_csv(file_path)
+        df = pd.read_csv(file_path)
 
-        if data[name].empty:
+        if df.empty:
             raise ValueError(
-                f"Analytics file contains no records: {file_name}"
+                f"Analytics file contains no records: {config['file']}"
             )
 
-    print("All five analytical files loaded successfully.")
+        missing_columns = [
+            col for col in config["columns"]
+            if col not in df.columns
+        ]
+
+        if missing_columns:
+            raise ValueError(
+                f"{config['file']} is missing columns: "
+                f"{missing_columns}"
+            )
+
+        data[name] = df
+
+        print(
+            f"Validated: {config['file']} "
+            f"({len(df)} records)"
+        )
+
+    print("\nAll five analytical files passed schema validation.")
 
     return data
 
