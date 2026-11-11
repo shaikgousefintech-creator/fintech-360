@@ -1,19 +1,24 @@
-# FINTECH 360° – UPI Data Quality & Reconciliation
+# FINTECH 360 - UPI Data Quality & Reconciliation
 
 ## 1. Overview
 
-Data quality validation ensures that UPI transaction records meet defined business and technical rules before they are used for analytics.
+Data quality validation ensures that UPI transaction records meet defined business and technical rules before they are used for analytical processing and reporting.
 
-The UPI module implements two levels of validation:
+The UPI module implements multiple levels of validation:
 
-- Python-based source data quality validation.
-- SQL and analytical mart reconciliation.
+- Ingestion-level record validation.
+- Python-based source data quality checks.
+- SQL-based warehouse validation.
+- Analytical mart reconciliation.
+- Automated testing of validation and analytics logic.
+
+These checks help maintain data consistency and improve the reliability of downstream analytics.
 
 ## 2. Python Data Quality Validation
 
 **Script:** `src/quality/upi_quality_checks.py`
 
-The validation process checks the raw UPI transaction dataset against 10 rules.
+The validation process checks the UPI transaction dataset against 10 rules.
 
 | No. | Validation Check | Purpose |
 |---|---|---|
@@ -38,18 +43,25 @@ The validation process checks the raw UPI transaction dataset against 10 rules.
 
 **Script:** `src/ingestion/upi_ingestion.py`
 
-During ingestion, records are validated and separated into two categories:
+During ingestion, incoming records are validated and separated into two categories:
 
-- Processed records: Records that pass validation.
-- Rejected records: Records containing one or more validation errors.
+- **Processed records:** Records that pass the ingestion validation rules.
+- **Rejected records:** Records containing one or more validation errors.
 
 Rejection reasons are stored in the `rejection_reason` column.
 
+**Outputs:**
+
+- `data/processed/upi/upi_transactions_processed.csv`
+- `data/rejected/upi/upi_transactions_rejected.csv`
+
 **Observed result:**
 
-- Input records: 10,000
-- Processed records: 10,000
-- Rejected records: 0
+| Metric | Result |
+|---|---:|
+| Input records | 10,000 |
+| Processed records | 10,000 |
+| Rejected records | 0 |
 
 ## 4. SQL-Based Data Validation
 
@@ -57,7 +69,7 @@ Rejection reasons are stored in the `rejection_reason` column.
 
 **Execution script:** `src/common/run_sql.py`
 
-Six SQL validation queries are executed.
+Six SQL validation queries are executed against the SQLite warehouse.
 
 | Query | Validation |
 |---|---|
@@ -70,13 +82,15 @@ Six SQL validation queries are executed.
 
 **Observed results:**
 
-- Total transactions: 10,000
-- Successful transactions: 9,399
-- Failed transactions: 403
-- Pending transactions: 198
-- Duplicate transaction IDs: 0
-- Missing identifiers: 0
-- Success rate: 93.99%
+| Metric | Result |
+|---|---:|
+| Total transactions | 10,000 |
+| Successful transactions | 9,399 |
+| Failed transactions | 403 |
+| Pending transactions | 198 |
+| Duplicate transaction IDs | 0 |
+| Missing identifiers | 0 |
+| Success rate | 93.99% |
 
 ## 5. Analytical Mart Reconciliation
 
@@ -109,7 +123,36 @@ Each mart is checked for:
 | Passed checks | 24 |
 | Failed checks | 0 |
 
-## 6. Data Reliability Workflow
+## 6. Automated Testing
+
+The project uses Pytest to verify ingestion, data quality, analytics and business insight functionality.
+
+Run the complete test suite:
+
+```powershell
+python -m pytest tests/ -v
+```
+
+The test suite covers:
+
+- UPI ingestion validation.
+- Invalid transaction rejection.
+- Duplicate transaction detection.
+- Data quality rules.
+- UPI analytics calculations.
+- Business insights generation.
+- Missing and invalid input handling.
+- Analytical output generation.
+
+**Latest recorded test result:**
+
+| Metric | Result |
+|---|---:|
+| Total automated tests | 35 |
+| Passed | 35 |
+| Failed | 0 |
+
+## 7. Data Reliability Workflow
 
 The validation process follows this sequence:
 
@@ -120,10 +163,11 @@ The validation process follows this sequence:
 5. Load curated records into SQLite.
 6. Execute SQL validation queries.
 7. Reconcile analytical marts against source transactions.
+8. Execute automated tests to verify pipeline functionality.
 
-## 7. Business Importance
+## 8. Business Importance
 
-These checks help prevent:
+Data quality and reconciliation help prevent:
 
 - Duplicate transaction records.
 - Invalid transaction amounts.
@@ -133,7 +177,9 @@ These checks help prevent:
 - Incorrect analytical aggregations.
 - Inconsistent dashboard metrics.
 
-## 8. Project Results
+These checks improve confidence in the data used by business analysts and decision-makers.
+
+## 9. Project Results
 
 During the recorded successful execution:
 
@@ -142,5 +188,12 @@ During the recorded successful execution:
 - All 10 Python data quality checks passed.
 - All 6 SQL validation queries completed.
 - All 24 analytical mart reconciliation checks passed.
+- All 35 automated tests passed.
 
-The module demonstrates source-level validation, transformation checks, SQL validation, and analytical reconciliation using synthetic UPI transaction data.
+These results represent observed execution and test runs using synthetic UPI transaction data. They are not guaranteed results for every future execution.
+
+## 10. Project Data Disclaimer
+
+This module uses synthetic UPI transaction data for learning, engineering practice, analytics and portfolio demonstration.
+
+It does not contain real customer information or actual payment-system transaction records.
