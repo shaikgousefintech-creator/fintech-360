@@ -18,15 +18,29 @@ The orchestrator executes 10 stages sequentially. It stops if any stage fails an
 - UPI raw transaction CSV available in the project data directory
 - SQLite warehouse database and SQL validation files configured
 
-## 3. Activate the Python Environment
+## 3. Set Up the Python Environment
 
 Open PowerShell in the project root directory.
+
+Create a virtual environment:
+
+```powershell
+python -m venv .venv
+```
+
+Activate the environment:
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
 If PowerShell blocks script execution, use the Python executable inside `.venv` directly or configure the execution policy appropriately for your environment.
+
+Install project dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
 
 ## 4. Execute the Complete Pipeline
 
@@ -43,7 +57,7 @@ The orchestrator uses the active Python interpreter to execute each pipeline sta
 | Stage | Component | Purpose |
 |---|---|---|
 | 1 | Data Ingestion | Reads raw UPI records and separates valid and rejected records |
-| 2 | Data Quality Validation | Validates required fields, transaction values, statuses and business rules |
+| 2 | Data Quality Validation | Executes UPI data quality checks |
 | 3 | Data Transformation | Standardizes and enriches transaction data |
 | 4 | SQLite Data Loading | Loads curated records into the SQLite warehouse |
 | 5 | SQL Validation | Executes SQL-based data validation |
@@ -53,14 +67,16 @@ The orchestrator uses the active Python interpreter to execute each pipeline sta
 | 9 | UPI Analytics | Generates business KPIs and performance datasets |
 | 10 | UPI Business Insights | Produces business insights and recommendations |
 
-### Stage 1 – Data Ingestion
+### Stage 1 - Data Ingestion
 
 **Script:** `src/ingestion/upi_ingestion.py`
 
 Input:
+
 - `data/raw/upi/upi_transactions.csv`
 
 Validation includes:
+
 - Required columns
 - Positive transaction amounts
 - Valid timestamps
@@ -70,15 +86,17 @@ Validation includes:
 - Merchant names for P2M transactions
 
 Outputs:
+
 - `data/processed/upi/upi_transactions_processed.csv`
 - `data/rejected/upi/upi_transactions_rejected.csv`
 - `logs/upi_ingestion.log`
 
-### Stage 2 – Data Quality Validation
+### Stage 2 - Data Quality Validation
 
 **Script:** `src/quality/upi_quality_checks.py`
 
 Validates:
+
 - Required columns and identifiers
 - Unique transaction IDs
 - Valid transaction amounts
@@ -89,13 +107,14 @@ Validates:
 - Valid transaction types
 - Currency
 
-Invalid data is identified through the validation rules before downstream processing.
+The script executes the defined data quality checks before downstream processing.
 
-### Stage 3 – Data Transformation
+### Stage 3 - Data Transformation
 
 **Script:** `src/transformation/upi_transformation.py`
 
 Operations:
+
 - Standardizes text and categorical values.
 - Converts amounts and timestamps.
 - Extracts transaction date, year, month, day, hour and weekday.
@@ -105,7 +124,7 @@ Output:
 
 `data/curated/upi/upi_transactions_curated.csv`
 
-### Stage 4 – SQLite Data Loading
+### Stage 4 - SQLite Data Loading
 
 **Script:** `src/ingestion/load_upi_to_sqlite.py`
 
@@ -117,7 +136,7 @@ Target table:
 
 `upi_transactions`
 
-### Stage 5 – SQL Validation
+### Stage 5 - SQL Validation
 
 **Script:** `src/common/run_sql.py`
 
@@ -127,7 +146,7 @@ Executes SQL statements from:
 
 Validates transaction counts, status distribution, transaction values, duplicate IDs, missing identifiers and success rates.
 
-### Stage 6 – Mart Quality Validation
+### Stage 6 - Mart Quality Validation
 
 **Script:** `src/quality/upi_mart_quality_check.py`
 
@@ -139,7 +158,7 @@ Validates the analytical marts:
 
 Checks transaction counts, transaction values, aggregation groups and calculated success rates.
 
-### Stage 7 – UPI Failure Analysis
+### Stage 7 - UPI Failure Analysis
 
 **Script:** `src/analytics/upi_failure_analysis.py`
 
@@ -155,7 +174,7 @@ Outputs:
 - `data/warehouse/upi/upi_app_failure_analysis.csv`
 - `data/warehouse/upi/upi_failure_reason_analysis.csv`
 
-### Stage 8 – UPI Time Analysis
+### Stage 8 - UPI Time Analysis
 
 **Script:** `src/analytics/upi_time_analysis.py`
 
@@ -171,13 +190,14 @@ Outputs:
 - `data/warehouse/upi/upi_hourly_analysis.csv`
 - `data/warehouse/upi/upi_weekday_analysis.csv`
 
-### Stage 9 – UPI Analytics
+### Stage 9 - UPI Analytics
 
 **Script:** `src/analytics/upi_analytics.py`
 
 Generates overall business KPIs and performance datasets.
 
 Metrics include:
+
 - Total transactions and transaction value
 - Successful, failed and pending transactions
 - Average transaction amount
@@ -193,7 +213,7 @@ Outputs:
 - `data/warehouse/upi/upi_payment_app_performance.csv`
 - `data/warehouse/upi/upi_payer_bank_performance.csv`
 
-### Stage 10 – UPI Business Insights
+### Stage 10 - UPI Business Insights
 
 **Script:** `src/analytics/upi_business_insights.py`
 
