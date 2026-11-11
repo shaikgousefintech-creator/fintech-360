@@ -7,9 +7,9 @@ import streamlit as st
 import plotly.express as px
 
 
-# --------------------------------------------------
+# ==========================================================
 # 1. CONFIGURATION
-# --------------------------------------------------
+# ==========================================================
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -28,9 +28,9 @@ st.set_page_config(
 )
 
 
-# --------------------------------------------------
+# ==========================================================
 # 2. DATABASE CONNECTION
-# --------------------------------------------------
+# ==========================================================
 
 @st.cache_data
 def load_data():
@@ -63,9 +63,9 @@ def load_data():
 transactions, daily, banks, apps = load_data()
 
 
-# --------------------------------------------------
+# ==========================================================
 # 3. PREPARE TRANSACTION DATA
-# --------------------------------------------------
+# ==========================================================
 
 if transactions.empty:
     st.error("No UPI transaction data available in the database.")
@@ -89,7 +89,6 @@ if transactions.empty:
     st.error("No valid transaction dates found.")
     st.stop()
 
-# Normalize dates for date-based filtering
 transactions["transaction_day"] = (
     transactions["transaction_date"].dt.normalize()
 )
@@ -98,32 +97,285 @@ start_date = transactions["transaction_day"].min().date()
 end_date = transactions["transaction_day"].max().date()
 
 
-# --------------------------------------------------
-# 4. DASHBOARD HEADER
-# --------------------------------------------------
+# ==========================================================
+# 4. FINTECH 360° THEME
+# ==========================================================
 
-st.title("FINTECH 360°")
+st.markdown(
+    """
+<style>
 
-st.subheader("UPI Payments Analytics Dashboard")
+/* ------------------------------------------
+   FINTECH 360° BRAND COLOURS
+------------------------------------------ */
 
-st.caption(
-    "End-to-End Financial Data Engineering, "
-    "Analytics & Business Intelligence Platform"
+:root {
+    --fintech-navy: #10243a;
+    --fintech-blue: #183e5c;
+    --fintech-teal: #176b75;
+    --fintech-accent: #9edce0;
+    --fintech-text: #e3edf5;
+    --fintech-muted: #c2d4e1;
+}
+
+/* ------------------------------------------
+   MAIN APPLICATION
+   Matching Portfolio Overview dark theme
+------------------------------------------ */
+
+.stApp {
+    background-color: #1e1e1e;
+    color: #e3edf5;
+}
+
+[data-testid="stHeader"] {
+    background-color: #1e1e1e;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #1e1e1e;
+    border-right: 1px solid #344354;
+}
+
+/* ------------------------------------------
+   HERO HEADER
+------------------------------------------ */
+
+.fintech-hero {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2.2rem 2rem;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        120deg,
+        #10243a 0%,
+        #183e5c 55%,
+        #176b75 100%
+    );
+
+    border: 1px solid rgba(158, 220, 224, 0.16);
+    color: #ffffff;
+    margin: 0 0 1.5rem 0;
+}
+
+.fintech-hero-kicker {
+    color: #9edce0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 0.6rem 0;
+}
+
+.fintech-hero h1 {
+    color: #ffffff !important;
+    font-size: 2.65rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.fintech-hero-subtitle {
+    color: #d9e8f1;
+    font-size: 1.12rem;
+    margin: 0.8rem 0 0.4rem 0;
+}
+
+.fintech-hero-description {
+    color: #c2d4e1;
+    font-size: 0.96rem;
+    max-width: 850px;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ------------------------------------------
+   DATE RANGE FILTERS
+   Target the actual BaseWeb input wrapper
+------------------------------------------ */
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"],
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"] > div {
+    background-color: #10243a !important;
+    border: 1px solid #176b75 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] input {
+    background-color: #10243a !important;
+    color: #e3edf5 !important;
+    -webkit-text-fill-color: #e3edf5 !important;
+    border: none !important;
+    color-scheme: dark !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] button {
+    color: #9edce0 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] button svg {
+    fill: #9edce0 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] label {
+    color: #d9e8f1 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"]:focus-within,
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"] > div:focus-within {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 1px #38bdf8 !important;
+}
+
+/* ------------------------------------------
+   BANK AND PAYMENT APP MULTISELECT FILTERS
+------------------------------------------ */
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="select"] > div {
+    background-color: #10243a !important;
+    border: 1px solid #176b75 !important;
+    border-radius: 8px !important;
+}
+
+/* Selected chips */
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] {
+    background-color: #176b75 !important;
+    border: 1px solid #38bdf8 !important;
+    color: #ffffff !important;
+}
+
+/* Chip text and remove icon */
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+/* ------------------------------------------
+   SIDEBAR LABELS AND HEADINGS
+------------------------------------------ */
+
+[data-testid="stSidebar"] label {
+    color: #d9e8f1 !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #e3edf5 !important;
+}
+
+/* ------------------------------------------
+   KPI CARDS
+------------------------------------------ */
+
+[data-testid="stMetric"] {
+    background: linear-gradient(
+        135deg,
+        #172b40,
+        #1b3d50
+    );
+
+    border: 1px solid #31566b;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #c2d4e1 !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #e3edf5 !important;
+}
+
+/* ------------------------------------------
+   HEADINGS AND CAPTIONS
+------------------------------------------ */
+
+h1, h2, h3, h4 {
+    color: #e3edf5 !important;
+}
+
+[data-testid="stCaptionContainer"] {
+    color: #aabac9 !important;
+}
+
+/* ------------------------------------------
+   DATAFRAMES
+------------------------------------------ */
+
+[data-testid="stDataFrame"] {
+    border: 1px solid #344b60;
+    border-radius: 10px;
+}
+
+/* ------------------------------------------
+   DOWNLOAD BUTTON
+------------------------------------------ */
+
+.stDownloadButton button {
+    background: linear-gradient(
+        120deg,
+        #183e5c,
+        #176b75
+    );
+
+    color: #ffffff !important;
+    border: 1px solid #38bdf8;
+    border-radius: 8px;
+}
+
+.stDownloadButton button:hover {
+    background: #176b75;
+    color: #ffffff !important;
+    border-color: #9edce0;
+}
+
+/* ------------------------------------------
+   DIVIDERS
+------------------------------------------ */
+
+hr {
+    border-color: #344354 !important;
+}
+
+</style>
+""",
+    unsafe_allow_html=True
+)
+
+
+# ==========================================================
+# 5. DASHBOARD HEADER
+# Important: HTML lines start at the beginning of the string.
+# This prevents Streamlit from displaying them as code.
+# ==========================================================
+
+st.markdown(
+    """<div class="fintech-hero">
+<div class="fintech-hero-kicker">FINANCIAL DATA PLATFORM · BUSINESS ANALYTICS</div>
+<h1>FINTECH 360°</h1>
+<div class="fintech-hero-subtitle">UPI Payments Analytics Dashboard</div>
+<div class="fintech-hero-description">End-to-End Financial Data Engineering, Analytics &amp; Business Intelligence Platform</div>
+</div>""",
+    unsafe_allow_html=True
 )
 
 st.divider()
 
 
-# --------------------------------------------------
-# 5. SIDEBAR FILTERS
-# --------------------------------------------------
+# ==========================================================
+# 6. SIDEBAR FILTERS
+# ==========================================================
 
 st.sidebar.header("Dashboard Filters")
 
 st.sidebar.subheader("Transaction Date Range")
-
-# Separate Start Date and End Date pickers
-# This avoids incomplete tuple selection issues.
 
 selected_start_date = st.sidebar.date_input(
     "Start Date",
@@ -141,8 +393,6 @@ selected_end_date = st.sidebar.date_input(
     key="upi_end_date"
 )
 
-# Validate selected date range
-
 if selected_start_date > selected_end_date:
 
     st.sidebar.error(
@@ -152,8 +402,6 @@ if selected_start_date > selected_end_date:
     st.stop()
 
 st.sidebar.divider()
-
-# Bank filter
 
 available_banks = sorted(
     transactions["payer_bank"].dropna().unique().tolist()
@@ -165,8 +413,6 @@ selected_banks = st.sidebar.multiselect(
     default=available_banks,
     key="upi_bank_filter"
 )
-
-# Payment App filter
 
 available_apps = sorted(
     transactions["payment_app"].dropna().unique().tolist()
@@ -180,12 +426,9 @@ selected_apps = st.sidebar.multiselect(
 )
 
 
-# --------------------------------------------------
-# 6. FILTER TRANSACTIONS
-# --------------------------------------------------
-
-# Convert selected dates into timestamps.
-# End date is exclusive, so the entire end date is included.
+# ==========================================================
+# 7. FILTER TRANSACTIONS
+# ==========================================================
 
 start_timestamp = pd.Timestamp(selected_start_date)
 
@@ -201,8 +444,6 @@ filtered = transactions[
     & (transactions["payment_app"].isin(selected_apps))
 ].copy()
 
-# Display selected filter information
-
 st.caption(
     f"Showing transactions from "
     f"{selected_start_date.strftime('%d %b %Y')} "
@@ -214,9 +455,9 @@ st.caption(
 )
 
 
-# --------------------------------------------------
-# 7. CALCULATE KPIs
-# --------------------------------------------------
+# ==========================================================
+# 8. CALCULATE KPIs
+# ==========================================================
 
 total_transactions = len(filtered)
 
@@ -246,9 +487,9 @@ success_rate = (
 )
 
 
-# --------------------------------------------------
-# 8. KPI CARDS
-# --------------------------------------------------
+# ==========================================================
+# 9. KPI CARDS
+# ==========================================================
 
 st.header("Key Performance Indicators")
 
@@ -294,9 +535,9 @@ c7.metric(
 st.divider()
 
 
-# --------------------------------------------------
-# 9. DAILY TRANSACTION TRENDS
-# --------------------------------------------------
+# ==========================================================
+# 10. DAILY TRANSACTION TRENDS
+# ==========================================================
 
 st.header("Daily Transaction Trends")
 
@@ -312,8 +553,6 @@ if not filtered.empty:
         .reset_index()
         .sort_values("transaction_day")
     )
-
-    # Daily Transaction Volume
 
     fig = px.bar(
         daily_trend,
@@ -336,8 +575,6 @@ if not filtered.empty:
         fig,
         use_container_width=True
     )
-
-    # Daily Transaction Value
 
     fig = px.line(
         daily_trend,
@@ -366,9 +603,9 @@ else:
     st.info("No transactions available for selected filters.")
 
 
-# --------------------------------------------------
-# 10. TRANSACTION STATUS ANALYSIS
-# --------------------------------------------------
+# ==========================================================
+# 11. TRANSACTION STATUS ANALYSIS
+# ==========================================================
 
 st.header("Transaction Status Analysis")
 
@@ -410,9 +647,9 @@ with col2:
     )
 
 
-# --------------------------------------------------
-# 11. BANK PERFORMANCE
-# --------------------------------------------------
+# ==========================================================
+# 12. BANK PERFORMANCE
+# ==========================================================
 
 st.header("Bank Performance Analysis")
 
@@ -432,8 +669,6 @@ if not filtered.empty:
         bank_data["successful_transactions"]
         / bank_data["total_transactions"] * 100
     )
-
-    # Bank-wise Transaction Volume
 
     fig = px.bar(
         bank_data.sort_values(
@@ -457,8 +692,6 @@ if not filtered.empty:
         use_container_width=True
     )
 
-    # Bank-wise Success Rate
-
     fig = px.bar(
         bank_data,
         x="payer_bank",
@@ -481,9 +714,9 @@ else:
     st.info("No bank performance data available.")
 
 
-# --------------------------------------------------
-# 12. PAYMENT APP PERFORMANCE
-# --------------------------------------------------
+# ==========================================================
+# 13. PAYMENT APP PERFORMANCE
+# ==========================================================
 
 st.header("Payment App Performance")
 
@@ -503,8 +736,6 @@ if not filtered.empty:
         app_data["successful_transactions"]
         / app_data["total_transactions"] * 100
     )
-
-    # Payment App Transaction Comparison
 
     fig = px.bar(
         app_data.sort_values(
@@ -528,8 +759,6 @@ if not filtered.empty:
         use_container_width=True
     )
 
-    # Payment App Success Rate
-
     fig = px.bar(
         app_data,
         x="payment_app",
@@ -552,15 +781,14 @@ else:
     st.info("No payment app performance data available.")
 
 
-# --------------------------------------------------
-# 13. UPI FAILURE AND TIME ANALYSIS
-# --------------------------------------------------
+# ==========================================================
+# 14. UPI FAILURE ANALYSIS
+# ==========================================================
 
 st.divider()
 
 st.header("UPI Failure Analysis")
 
-# Consider only failed transactions
 failed_data = filtered[
     filtered["status"] == "FAILED"
 ].copy()
@@ -568,7 +796,7 @@ failed_data = filtered[
 if not failed_data.empty:
 
     # ----------------------------------------------
-    # 13.1 FAILURE REASON ANALYSIS
+    # 14.1 FAILURE REASON ANALYSIS
     # ----------------------------------------------
 
     st.subheader("Failure Reason Analysis")
@@ -611,7 +839,10 @@ if not failed_data.empty:
         }
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     st.dataframe(
         failure_reason_data,
@@ -620,7 +851,7 @@ if not failed_data.empty:
     )
 
     # ----------------------------------------------
-    # 13.2 BANK FAILURE ANALYSIS
+    # 14.2 BANK FAILURE ANALYSIS
     # ----------------------------------------------
 
     st.subheader("Bank Failure Analysis")
@@ -659,9 +890,14 @@ if not failed_data.empty:
         }
     )
 
-    fig.update_traces(texttemplate="%{text:.2f}%")
+    fig.update_traces(
+        texttemplate="%{text:.2f}%"
+    )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     st.dataframe(
         bank_failure_data,
@@ -670,7 +906,7 @@ if not failed_data.empty:
     )
 
     # ----------------------------------------------
-    # 13.3 PAYMENT APP FAILURE ANALYSIS
+    # 14.3 PAYMENT APP FAILURE ANALYSIS
     # ----------------------------------------------
 
     st.subheader("Payment App Failure Analysis")
@@ -709,9 +945,14 @@ if not failed_data.empty:
         }
     )
 
-    fig.update_traces(texttemplate="%{text:.2f}%")
+    fig.update_traces(
+        texttemplate="%{text:.2f}%"
+    )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     st.dataframe(
         app_failure_data,
@@ -724,9 +965,9 @@ else:
     st.info("No failed transactions found for the selected filters.")
 
 
-# --------------------------------------------------
-# 14. UPI TIME ANALYSIS
-# --------------------------------------------------
+# ==========================================================
+# 15. UPI TRANSACTION TIME ANALYSIS
+# ==========================================================
 
 st.divider()
 
@@ -735,7 +976,7 @@ st.header("UPI Transaction Time Analysis")
 if not filtered.empty:
 
     # ----------------------------------------------
-    # 14.1 HOURLY TRANSACTION ANALYSIS
+    # 15.1 HOURLY TRANSACTION ANALYSIS
     # ----------------------------------------------
 
     st.subheader("Hourly Transaction Analysis")
@@ -783,7 +1024,10 @@ if not filtered.empty:
         dtick=1
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     fig = px.line(
         hourly_data,
@@ -803,7 +1047,10 @@ if not filtered.empty:
         dtick=1
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     st.dataframe(
         hourly_data,
@@ -812,7 +1059,7 @@ if not filtered.empty:
     )
 
     # ----------------------------------------------
-    # 14.2 WEEKDAY TRANSACTION ANALYSIS
+    # 15.2 WEEKDAY TRANSACTION ANALYSIS
     # ----------------------------------------------
 
     st.subheader("Day-of-Week Transaction Analysis")
@@ -875,7 +1122,10 @@ if not filtered.empty:
         }
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     fig = px.bar(
         weekday_data,
@@ -889,9 +1139,14 @@ if not filtered.empty:
         }
     )
 
-    fig.update_traces(texttemplate="%{text:.2f}%")
+    fig.update_traces(
+        texttemplate="%{text:.2f}%"
+    )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
 
     st.dataframe(
         weekday_data,
@@ -904,14 +1159,9 @@ else:
     st.info("No transactions available for time analysis.")
 
 
-# --------------------------------------------------
-# 15. TRANSACTION DATA EXPLORER
-# --------------------------------------------------
-
-
-# --------------------------------------------------
-# 13. TRANSACTION DATA EXPLORER
-# --------------------------------------------------
+# ==========================================================
+# 16. TRANSACTION DATA EXPLORER
+# ==========================================================
 
 st.header("Transaction Data Explorer")
 
@@ -933,9 +1183,9 @@ st.download_button(
 )
 
 
-# --------------------------------------------------
-# 14. FOOTER
-# --------------------------------------------------
+# ==========================================================
+# 17. FOOTER
+# ==========================================================
 
 st.divider()
 

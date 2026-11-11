@@ -54,12 +54,9 @@ def load_data():
                 s.fund_category,
                 s.risk_level,
                 s.expense_ratio
-
             FROM mf_transactions t
-
             LEFT JOIN mf_investors i
                 ON t.investor_id = i.investor_id
-
             LEFT JOIN mf_schemes s
                 ON t.scheme_id = s.scheme_id
             """,
@@ -96,23 +93,249 @@ except Exception as error:
 
 
 # ==================================================
-# 3. DASHBOARD HEADER
+# 3. FINTECH 360° SHARED THEME
 # ==================================================
 
-st.title("FINTECH 360°")
+st.markdown(
+    """
+<style>
 
-st.header("Mutual Funds Analytics Dashboard")
+/* FINTECH 360° BRAND COLOURS */
 
-st.caption(
-    "End-to-End Financial Data Engineering, "
-    "Analytics and Business Intelligence Platform"
+:root {
+    --fintech-navy: #10243a;
+    --fintech-blue: #183e5c;
+    --fintech-teal: #176b75;
+    --fintech-accent: #9edce0;
+    --fintech-text: #e3edf5;
+    --fintech-muted: #c2d4e1;
+}
+
+/* MAIN APPLICATION */
+
+.stApp {
+    background-color: #1e1e1e;
+    color: #e3edf5;
+}
+
+[data-testid="stHeader"] {
+    background-color: #1e1e1e;
+}
+
+/* SIDEBAR */
+
+[data-testid="stSidebar"] {
+    background-color: #1e1e1e;
+    border-right: 1px solid #344354;
+}
+
+/* GRADIENT HERO HEADER */
+
+.fintech-hero {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2.2rem 2rem;
+    border-radius: 18px;
+    background: linear-gradient(
+        120deg,
+        #10243a 0%,
+        #183e5c 55%,
+        #176b75 100%
+    );
+    border: 1px solid rgba(158, 220, 224, 0.16);
+    color: #ffffff;
+    margin: 0 0 1.5rem 0;
+}
+
+.fintech-hero-kicker {
+    color: #9edce0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 0.6rem 0;
+}
+
+.fintech-hero h1 {
+    color: #ffffff !important;
+    font-size: 2.65rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.fintech-hero-subtitle {
+    color: #d9e8f1;
+    font-size: 1.12rem;
+    margin: 0.8rem 0 0.4rem 0;
+}
+
+.fintech-hero-description {
+    color: #c2d4e1;
+    font-size: 0.96rem;
+    max-width: 850px;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* DATE FILTERS */
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"],
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"] > div {
+    background-color: #10243a !important;
+    border: 1px solid #176b75 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] input {
+    background-color: #10243a !important;
+    color: #e3edf5 !important;
+    -webkit-text-fill-color: #e3edf5 !important;
+    border: none !important;
+    color-scheme: dark !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] button {
+    color: #9edce0 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] button svg {
+    fill: #9edce0 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] label {
+    color: #d9e8f1 !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"]:focus-within,
+[data-testid="stSidebar"] [data-testid="stDateInput"] [data-baseweb="input"] > div:focus-within {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 1px #38bdf8 !important;
+}
+
+/* MULTISELECT FILTERS */
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="select"] > div {
+    background-color: #10243a !important;
+    border: 1px solid #176b75 !important;
+    border-radius: 8px !important;
+}
+
+/* SELECTED FILTER CHIPS */
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] {
+    background-color: #176b75 !important;
+    border: 1px solid #38bdf8 !important;
+    color: #ffffff !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+/* SIDEBAR TEXT */
+
+[data-testid="stSidebar"] label {
+    color: #d9e8f1 !important;
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #e3edf5 !important;
+}
+
+/* KPI CARDS */
+
+[data-testid="stMetric"] {
+    background: linear-gradient(
+        135deg,
+        #172b40,
+        #1b3d50
+    );
+    border: 1px solid #31566b;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #c2d4e1 !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #e3edf5 !important;
+}
+
+/* HEADINGS AND CAPTIONS */
+
+h1, h2, h3, h4 {
+    color: #e3edf5 !important;
+}
+
+[data-testid="stCaptionContainer"] {
+    color: #aabac9 !important;
+}
+
+/* DATA TABLES */
+
+[data-testid="stDataFrame"] {
+    border: 1px solid #344b60;
+    border-radius: 10px;
+}
+
+/* DOWNLOAD BUTTON */
+
+.stDownloadButton button {
+    background: linear-gradient(
+        120deg,
+        #183e5c,
+        #176b75
+    );
+    color: #ffffff !important;
+    border: 1px solid #38bdf8;
+    border-radius: 8px;
+}
+
+.stDownloadButton button:hover {
+    background: #176b75;
+    color: #ffffff !important;
+    border-color: #9edce0;
+}
+
+/* DIVIDERS */
+
+hr {
+    border-color: #344354 !important;
+}
+
+</style>
+""",
+    unsafe_allow_html=True
+)
+
+
+# ==================================================
+# 4. DASHBOARD HEADER
+# ==================================================
+
+st.markdown(
+    """<div class="fintech-hero">
+<div class="fintech-hero-kicker">FINANCIAL DATA PLATFORM · BUSINESS ANALYTICS</div>
+<h1>FINTECH 360°</h1>
+<div class="fintech-hero-subtitle">Mutual Funds Analytics Dashboard</div>
+<div class="fintech-hero-description">End-to-End Financial Data Engineering, Analytics &amp; Business Intelligence Platform</div>
+</div>""",
+    unsafe_allow_html=True
 )
 
 st.divider()
 
 
 # ==================================================
-# 4. SIDEBAR FILTERS
+# 5. SIDEBAR FILTERS
 # ==================================================
 
 st.sidebar.header("Dashboard Filters")
@@ -202,7 +425,7 @@ st.sidebar.caption(
 
 
 # ==================================================
-# 5. APPLY FILTERS
+# 6. APPLY FILTERS
 # ==================================================
 
 start_timestamp = pd.Timestamp(start_date)
@@ -231,7 +454,7 @@ st.write(f"Filtered Records: {len(filtered):,}")
 
 
 # ==================================================
-# 6. KEY PERFORMANCE INDICATORS
+# 7. KEY PERFORMANCE INDICATORS
 # ==================================================
 
 st.header("Key Performance Indicators")
@@ -319,7 +542,7 @@ st.divider()
 
 
 # ==================================================
-# 7. INVESTOR BEHAVIOUR ANALYSIS
+# 8. INVESTOR BEHAVIOUR ANALYSIS
 # ==================================================
 
 st.header("Investor Behaviour Analysis")
@@ -427,7 +650,7 @@ with right:
 
 
 # ==================================================
-# 8. MUTUAL FUND SCHEME PERFORMANCE
+# 9. MUTUAL FUND SCHEME PERFORMANCE
 # ==================================================
 
 st.divider()
@@ -558,7 +781,7 @@ else:
 
 
 # ==================================================
-# 9. FUND CATEGORY ANALYSIS
+# 10. FUND CATEGORY ANALYSIS
 # ==================================================
 
 st.divider()
@@ -630,7 +853,7 @@ else:
 
 
 # ==================================================
-# 10. INVESTMENT MODE ANALYSIS
+# 11. INVESTMENT MODE ANALYSIS
 # ==================================================
 
 st.divider()
@@ -732,7 +955,7 @@ else:
 
 
 # ==================================================
-# 11. MONTHLY INVESTMENT TRENDS
+# 12. MONTHLY INVESTMENT TRENDS
 # ==================================================
 
 st.divider()
@@ -819,7 +1042,7 @@ else:
 
 
 # ==================================================
-# 12. TRANSACTION DATA EXPLORER
+# 13. TRANSACTION DATA EXPLORER
 # ==================================================
 
 st.divider()
@@ -875,7 +1098,7 @@ else:
 
 
 # ==================================================
-# 13. FOOTER
+# 14. FOOTER
 # ==================================================
 
 st.divider()
