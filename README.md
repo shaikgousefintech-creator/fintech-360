@@ -110,6 +110,31 @@ The UPI module demonstrates an end-to-end financial transaction data pipeline.
 - 24 analytical mart reconciliation checks passed.
 - 35 automated pytest tests passed.
 
+### UPI Dashboard Screenshots
+
+The UPI module includes an interactive Streamlit dashboard that provides insights into transaction performance, daily trends, bank performance, and payment application performance.
+
+**1. Dashboard Overview**
+
+![UPI Dashboard Overview](docs/images/upi_dashboard_overview.png)
+
+**2. Daily Transaction Trends**
+
+![Daily Transaction Trends](docs/images/upi_daily_transaction_trends.png)
+
+**3. Bank Performance Analysis**
+
+![Bank Performance](docs/images/upi_bank_performance.png)
+
+**4. Payment App Performance**
+
+![Payment App Performance](docs/images/upi_payment_app_performance.png)
+
+**5. Transaction Data Explorer**
+
+![Transaction Data Explorer](docs/images/upi_transaction_explorer.png)
+
+
 ### 2. Mutual Funds
 
 **Status: Planned**
