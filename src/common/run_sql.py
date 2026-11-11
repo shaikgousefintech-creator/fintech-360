@@ -17,7 +17,7 @@ DB_PATH = (
     / "fintech360.db"
 )
 
-SQL_FILE = (
+DEFAULT_SQL_FILE = (
     BASE_DIR
     / "sql"
     / "transformations"
@@ -29,14 +29,19 @@ SQL_FILE = (
 # 2. READ AND PARSE SQL STATEMENTS
 # --------------------------------------------------
 
-def read_sql_statements():
+def read_sql_statements(sql_file=DEFAULT_SQL_FILE):
 
-    if not SQL_FILE.exists():
+    sql_path = Path(sql_file)
+
+    if not sql_path.is_absolute():
+        sql_path = BASE_DIR / sql_path
+
+    if not sql_path.exists():
         raise FileNotFoundError(
-            f"SQL file not found: {SQL_FILE}"
+            f"SQL file not found: {sql_path}"
         )
 
-    sql_content = SQL_FILE.read_text(
+    sql_content = sql_path.read_text(
         encoding="utf-8"
     )
 
@@ -78,11 +83,18 @@ def read_sql_statements():
 # 3. EXECUTE SQL VALIDATION
 # --------------------------------------------------
 
-def run_sql_file():
+def run_sql_file(sql_file=DEFAULT_SQL_FILE):
+
+    sql_path = Path(sql_file)
+
+    if not sql_path.is_absolute():
+        sql_path = BASE_DIR / sql_path
 
     print("=" * 60)
     print("FINTECH 360 - SQL VALIDATION")
     print("=" * 60)
+
+    print(f"\nSQL file: {sql_path.name}")
 
     # Check database existence
     if not DB_PATH.exists():
@@ -90,7 +102,7 @@ def run_sql_file():
             f"Database not found: {DB_PATH}"
         )
 
-    statements = read_sql_statements()
+    statements = read_sql_statements(sql_path)
 
     print(f"\nSQL statements found: {len(statements)}")
 
