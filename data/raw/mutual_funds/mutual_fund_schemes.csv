@@ -1,0 +1,21 @@
+scheme_id,scheme_name,fund_house,fund_category,risk_level,benchmark,expense_ratio,launch_date
+SCM001,Pioneer Asset Management Equity Fund 01,Pioneer Asset Management,EQUITY,HIGH,NIFTY 50,2.12,2024-01-01
+SCM002,Summit Investments Debt Fund 02,Summit Investments,DEBT,LOW,CRISIL BOND INDEX,1.61,2024-01-01
+SCM003,Crest Financial Hybrid Fund 03,Apex Mutual Fund,HYBRID,MODERATE,NIFTY HYBRID INDEX,1.51,2024-01-01
+SCM004,Apex Mutual Fund Index Fund 04,Summit Investments,INDEX,HIGH,NIFTY 50,1.32,2024-01-01
+SCM005,Summit Investments Equity Fund 05,Apex Mutual Fund,EQUITY,HIGH,NIFTY 50,1.93,2024-01-01
+SCM006,Summit Investments Debt Fund 06,Horizon Asset Management,DEBT,LOW,CRISIL BOND INDEX,0.6,2024-01-01
+SCM007,Apex Mutual Fund Hybrid Fund 07,Crest Financial,HYBRID,MODERATE,NIFTY HYBRID INDEX,1.57,2024-01-01
+SCM008,Summit Investments Index Fund 08,Crest Financial,INDEX,HIGH,NIFTY 50,2.04,2024-01-01
+SCM009,Summit Investments Equity Fund 09,Crest Financial,EQUITY,HIGH,NIFTY 50,0.42,2024-01-01
+SCM010,Crest Financial Debt Fund 10,Horizon Asset Management,DEBT,LOW,CRISIL BOND INDEX,0.53,2024-01-01
+SCM011,Horizon Asset Management Hybrid Fund 11,Apex Mutual Fund,HYBRID,MODERATE,NIFTY HYBRID INDEX,1.69,2024-01-01
+SCM012,Pioneer Asset Management Index Fund 12,Horizon Asset Management,INDEX,HIGH,NIFTY 50,1.23,2024-01-01
+SCM013,Apex Mutual Fund Equity Fund 13,Pioneer Asset Management,EQUITY,HIGH,NIFTY 50,1.54,2024-01-01
+SCM014,Crest Financial Debt Fund 14,Pioneer Asset Management,DEBT,LOW,CRISIL BOND INDEX,2.18,2024-01-01
+SCM015,Crest Financial Hybrid Fund 15,Apex Mutual Fund,HYBRID,MODERATE,NIFTY HYBRID INDEX,0.32,2024-01-01
+SCM016,Apex Mutual Fund Index Fund 16,Summit Investments,INDEX,HIGH,NIFTY 50,1.83,2024-01-01
+SCM017,Apex Mutual Fund Equity Fund 17,Crest Financial,EQUITY,HIGH,NIFTY 50,0.49,2024-01-01
+SCM018,Pioneer Asset Management Debt Fund 18,Crest Financial,DEBT,LOW,CRISIL BOND INDEX,2.13,2024-01-01
+SCM019,Pioneer Asset Management Hybrid Fund 19,Horizon Asset Management,HYBRID,MODERATE,NIFTY HYBRID INDEX,1.73,2024-01-01
+SCM020,Horizon Asset Management Index Fund 20,Apex Mutual Fund,INDEX,HIGH,NIFTY 50,0.32,2024-01-01
