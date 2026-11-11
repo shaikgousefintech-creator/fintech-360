@@ -2,7 +2,7 @@
 
 ### End-to-End Financial Data Engineering, Analytics & Business Intelligence Platform
 
-FINTECH 360° is an end-to-end data engineering and analytics portfolio project demonstrating how financial transaction data can be ingested, validated, transformed, stored, analyzed, and presented through interactive dashboards.
+FINTECH 360° is an end-to-end financial data engineering and analytics portfolio project demonstrating how financial transaction data can be ingested, validated, transformed, stored, analyzed, and presented through interactive dashboards.
 
 The platform covers four fintech domains:
 
@@ -34,6 +34,7 @@ The project uses synthetic financial data to demonstrate practical data engineer
 | Database | SQLite |
 | Query Language | SQL |
 | Visualization | Streamlit, Plotly |
+| Testing | Pytest |
 | Version Control | Git, GitHub |
 
 ## Project Architecture
@@ -42,25 +43,26 @@ The platform follows this general workflow:
 
 ```text
 Synthetic Financial Data
-          |
-          v
-     Data Ingestion
-          |
-          v
-   Data Quality Checks
-          |
-          v
-   Data Transformation
-          |
-          v
-   SQLite Data Warehouse
-          |
-          v
-   SQL Analytics & Marts
-          |
-          v
+         |
+         v
+    Data Ingestion
+         |
+         v
+  Data Quality Checks
+         |
+         v
+  Data Transformation
+         |
+         v
+  SQLite Data Warehouse
+         |
+         v
+  SQL Analytics & Marts
+         |
+         v
 Business Insights & Dashboards
 ```
+
 ## Documentation
 
 Detailed documentation for the implemented UPI module is available below:
@@ -91,18 +93,22 @@ The UPI module demonstrates an end-to-end financial transaction data pipeline.
 - SQL-based data validation.
 - Analytical data marts.
 - Data quality and reconciliation checks.
-- Pipeline orchestration.
+- Pipeline orchestration and execution logging.
 - Interactive Streamlit dashboard.
-- Business insights, transaction failure analysis, and time-based analysis scripts.
+- Business insights, transaction failure analysis, and time-based analysis.
 
 **Current dataset:** 10,000 synthetic UPI transactions.
 
 **Validation results:**
 
-- 10,000 records processed.
+- 10,000 raw records.
+- 10,000 processed records.
 - 0 rejected records.
+- 10,000 curated records.
+- 10,000 records loaded into SQLite.
 - 10 data quality checks passed.
 - 24 analytical mart reconciliation checks passed.
+- 35 automated pytest tests passed.
 
 ### 2. Mutual Funds
 
@@ -141,43 +147,56 @@ Planned scope:
 
 ```text
 fintech-360/
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   ├── curated/
-│   └── warehouse/
-│
-├── docs/
-├── logs/
-├── notebooks/
-│
-├── sql/
-│   ├── ddl/
-│   ├── transformations/
-│   └── marts/
-│
-├── src/
-│   ├── ingestion/
-│   ├── transformation/
-│   ├── quality/
-│   ├── common/
-│   ├── analytics/
-│   └── dashboard/
-│
-├── tests/
-├── config/
-│
-├── README.md
-└── .gitignore
+|
+|-- config/
+|
+|-- data/
+|   |-- raw/
+|   |-- processed/
+|   |-- rejected/
+|   |-- curated/
+|   |-- warehouse/
+|
+|-- docs/
+|
+|-- logs/
+|
+|-- notebooks/
+|
+|-- sql/
+|   |-- ddl/
+|   |-- transformations/
+|   |-- marts/
+|
+|-- src/
+|   |-- ingestion/
+|   |-- transformation/
+|   |-- quality/
+|   |-- common/
+|   |-- analytics/
+|   |-- dashboard/
+|
+|-- tests/
+|
+|-- .gitignore
+|-- LICENSE
+|-- README.md
+|-- requirements.txt
 ```
 
 ## Running the UPI Pipeline
 
+### Prerequisites
+
+- Python 3.12
+- Git
+- Required project dependencies
+- Windows, macOS, or Linux environment
+
 ### 1. Clone the repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone https://github.com/shaikgousefintech-creator/fintech-360.git
 cd fintech-360
 ```
 
@@ -198,16 +217,37 @@ Windows PowerShell:
 ### 4. Install dependencies
 
 ```bash
-pip install pandas streamlit plotly
+pip install -r requirements.txt
 ```
 
-### 5. Run the UPI pipeline
+### 5. Run the complete UPI pipeline
 
 ```bash
 python src/common/run_upi_pipeline.py
 ```
 
-### 6. Launch the UPI dashboard
+The orchestrator executes the pipeline stages in sequence:
+
+1. Data ingestion.
+2. Data quality validation.
+3. Data transformation.
+4. SQLite data loading.
+5. SQL validation.
+6. Mart quality validation.
+7. UPI failure analysis.
+8. UPI time analysis.
+9. UPI analytics.
+10. UPI business insights.
+
+The orchestrator stops execution if a stage fails and records execution details in the pipeline log.
+
+### 6. Run automated tests
+
+```bash
+python -m pytest tests/ -v
+```
+
+### 7. Launch the UPI dashboard
 
 ```bash
 python -m streamlit run src/dashboard/upi_dashboard.py
@@ -240,11 +280,29 @@ The UPI pipeline includes validation at multiple stages:
 - SQL-based data validation.
 - Analytical mart reconciliation.
 
+Automated tests cover ingestion, analytics, business insights, and data quality validation.
+
+## Pipeline Monitoring and Logging
+
+The pipeline uses Python logging to record:
+
+- Pipeline execution start and completion.
+- Individual stage execution.
+- Stage execution time.
+- Failed stages and error details.
+- Overall pipeline execution summary.
+
+Execution logs are stored in:
+
+```text
+logs/upi_pipeline.log
+```
+
 ## Future Enhancements
 
 - Complete Mutual Funds, Digital Gold, and Cash Loans modules.
 - Integrate all financial domains into a unified analytical warehouse.
-- Add automated testing and stronger pipeline monitoring.
+- Expand automated testing and pipeline monitoring.
 - Expand business intelligence dashboards.
 - Improve deployment and documentation.
 
@@ -255,3 +313,5 @@ This project uses synthetic data for educational and portfolio demonstration pur
 ## Author
 
 **FINTECH 360°** — A practical portfolio project demonstrating end-to-end financial data engineering, analytics, and business intelligence.
+
+**GitHub Repository:** [FINTECH 360°](https://github.com/shaikgousefintech-creator/fintech-360)
