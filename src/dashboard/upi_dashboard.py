@@ -1189,6 +1189,12 @@ st.download_button(
 
 st.divider()
 
+st.sidebar.divider()
+
+st.sidebar.caption(
+    "FINTECH 360° | UPI Payments Module"
+)
+
 st.caption(
     "FINTECH 360° | UPI Analytics | "
     "Built with Python, SQLite, Streamlit and Plotly"

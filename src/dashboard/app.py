@@ -11,7 +11,7 @@ pages = {
     "FINTECH 360°": [
         st.Page(
             "executive_overview.py",
-            title="Portfolio Overview",
+            title="Overview",
             icon="🏠",
             default=True,
         ),
