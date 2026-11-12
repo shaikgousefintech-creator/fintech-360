@@ -1,6 +1,4 @@
-
 import streamlit as st
-
 
 st.set_page_config(
     page_title="FINTECH 360° | Data Engineering & Analytics",
@@ -19,16 +17,10 @@ pages = {
         ),
     ],
     "Business Platforms": [
-        st.Page(
-            "upi_dashboard.py",
-            title="UPI Payments",
-            icon="💳",
-        ),
-        st.Page(
-            "mutual_fund_dashboard.py",
-            title="Mutual Funds",
-            icon="📈",
-        ),
+        st.Page("upi_dashboard.py", title="UPI Payments", icon="💳"),
+        st.Page("mutual_fund_dashboard.py", title="Mutual Funds", icon="📈"),
+        st.Page("digital_gold_dashboard.py", title="Digital Gold", icon="🪙"),
+        st.Page("cash_loan_dashboard.py", title="Cash Loans", icon="💰"),
     ],
 }
 

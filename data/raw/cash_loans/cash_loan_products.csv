@@ -1,0 +1,9 @@
+product_id,product_name,loan_type,min_loan_amount,max_loan_amount,annual_interest_rate,min_tenure_months,max_tenure_months,processing_fee_percentage,launch_date
+LP001,Flexi Personal Loan,PERSONAL,10000,500000,14.5,6,36,2.0,2024-01-01
+LP002,Quick Salary Advance,SALARY,5000,100000,12.0,3,12,1.5,2024-01-01
+LP003,Business Growth Loan,BUSINESS,50000,1000000,16.0,12,48,2.5,2024-01-01
+LP004,Emergency Cash Loan,EMERGENCY,5000,75000,18.0,3,12,1.0,2024-01-01
+LP005,Premium Personal Loan,PERSONAL,100000,1500000,11.5,12,60,1.5,2024-01-01
+LP006,Monthly Salary Loan,SALARY,10000,200000,13.0,6,24,1.75,2024-01-01
+LP007,Small Business Loan,BUSINESS,25000,500000,15.0,6,36,2.0,2024-01-01
+LP008,Instant Emergency Loan,EMERGENCY,3000,50000,19.0,3,9,1.0,2024-01-01
