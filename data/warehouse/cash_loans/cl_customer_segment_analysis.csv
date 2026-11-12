@@ -1,0 +1,4 @@
+customer_segment,total_customers,total_applications,approved_applications,rejected_applications,total_requested_amount,total_approved_amount,approval_rate_percentage,successful_disbursements,total_disbursed_amount,total_installments,total_amount_collected,total_outstanding_amount,overdue_outstanding_amount,repayment_collection_rate_percentage,average_disbursed_amount_per_customer
+NEW,1290,3867,2088,606,1002295122.32,466421680.56,54.0,1945,433166510.97,35370,130870280.82,373281743.09,15373295.52,25.96,335787.99
+PREMIUM,983,2866,1580,425,726635397.18,345654564.61,55.13,1495,332374890.39,27058,103352076.84,283695951.44,12046937.72,26.7,338122.98
+REGULAR,2727,8267,4517,1280,2116584483.38,1015012401.11,54.64,4247,950573066.73,76316,278364392.79,824897098.67,36283670.62,25.23,348578.32

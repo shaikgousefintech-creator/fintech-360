@@ -1,0 +1,4 @@
+customer_segment,total_customers,total_applications,approved_applications,rejected_applications,total_requested_amount,total_approved_amount,successful_disbursements,total_disbursed_amount,total_installments,paid_installments,overdue_installments,total_repayment_due,total_amount_collected,total_outstanding_amount,overdue_outstanding_amount,approval_rate_percentage,repayment_collection_rate_percentage
+REGULAR,2727,8267,4517,1280,2116584483.38,1015012401.11,4247,950573066.73,76316,18552,2519,1103261491.46,278364392.79,824897098.67,36283670.62,54.64,25.23
+NEW,1290,3867,2088,606,1002295122.32,466421680.56,1945,433166510.97,35370,8642,1119,504152023.91,130870280.82,373281743.09,15373295.52,54.0,25.96
+PREMIUM,983,2866,1580,425,726635397.18,345654564.61,1495,332374890.39,27058,6757,876,387048028.28,103352076.84,283695951.44,12046937.72,55.13,26.7

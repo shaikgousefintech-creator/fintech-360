@@ -1,0 +1,6 @@
+employment_type,total_applications,approved_applications,rejected_applications,cancelled_applications,total_requested_amount,total_approved_amount,approval_rate_percentage,average_credit_score,average_monthly_income,total_disbursement_attempts,successful_disbursements,total_disbursed_amount
+UNEMPLOYED,1055,606,152,54,286531080.45,145979452.21,57.44,604.26,0.0,606,565,137510637.41
+STUDENT,1213,673,169,58,304944043.24,143402289.3,55.48,602.9,5032.09,673,630,134202577.7
+BUSINESS_OWNER,1519,823,238,79,381682056.85,181011575.29,54.18,606.95,267205.91,823,772,168625820.11
+SELF_EMPLOYED,2291,1174,375,102,572985762.4,253765925.08,51.24,603.36,135326.27,1174,1113,240909455.05
+SALARIED,8922,4909,1377,423,2299372059.94,1102929404.4,55.02,600.32,107305.61,4909,4607,1034865977.82
