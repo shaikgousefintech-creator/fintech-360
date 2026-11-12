@@ -1,15 +1,15 @@
-# FINTECH 360Â°
+# FINTECH 360°
 
 ### End-to-End Financial Data Engineering, Analytics & Business Intelligence Platform
 
-**FINTECH 360Â°** is an end-to-end financial data engineering and business intelligence portfolio project that demonstrates how financial data can be ingested, validated, transformed, stored, analyzed, and presented through interactive dashboards.
+**FINTECH 360°** is an end-to-end financial data engineering and business intelligence portfolio project that demonstrates how financial data can be ingested, validated, transformed, stored, analyzed, and presented through interactive dashboards.
 
 The platform brings together four financial domains:
 
-- **UPI Payments** â€“ Digital payment transaction analytics.
-- **Mutual Funds** â€“ Investor, scheme, and investment transaction analytics.
-- **Digital Gold** â€“ Gold purchase, sale, holdings, and customer behavior analytics.
-- **Cash Loans** â€“ Loan applications, disbursements, repayments, and credit risk analytics.
+- **UPI Payments** - Digital payment transaction analytics.
+- **Mutual Funds** - Investor, scheme, and investment transaction analytics.
+- **Digital Gold** - Gold purchase, sale, holdings, and customer behavior analytics.
+- **Cash Loans** - Loan applications, disbursements, repayments, and credit risk analytics.
 
 The project uses synthetic financial data to demonstrate practical data engineering workflows without exposing real customer or financial information.
 
@@ -41,7 +41,7 @@ The project uses synthetic financial data to demonstrate practical data engineer
 
 ## Platform Architecture
 
-FINTECH 360Â° follows a structured data engineering workflow:
+FINTECH 360° follows a structured data engineering workflow:
 
 ```text
              Synthetic Financial Data
@@ -374,7 +374,7 @@ The Cash Loans module analyzes the complete loan lifecycle, from customer applic
 
 # Unified Executive Dashboard
 
-FINTECH 360Â° includes a unified Streamlit application that brings all four financial domains together.
+FINTECH 360° includes a unified Streamlit application that brings all four financial domains together.
 
 The Overview dashboard provides:
 
@@ -496,7 +496,7 @@ pip install -r requirements.txt
 python -m streamlit run src/dashboard/app.py
 ```
 
-The application opens the FINTECH 360Â° Overview dashboard, from which users can navigate to UPI Payments, Mutual Funds, Digital Gold, and Cash Loans.
+The application opens the FINTECH 360° Overview dashboard, from which users can navigate to UPI Payments, Mutual Funds, Digital Gold, and Cash Loans.
 
 ## Pipeline Execution and Testing
 
@@ -508,7 +508,7 @@ Refer to the relevant execution guide before running a domain pipeline:
 - [Mutual Funds Pipeline Execution](docs/MUTUAL_FUNDS_PIPELINE_EXECUTION.md)
 - [Digital Gold Pipeline Execution](docs/DIGITAL_GOLD_PIPELINE_EXECUTION.md)
 - [Cash Loans Pipeline Execution](docs/CASH_LOANS_PIPELINE_EXECUTION.md)
-- [FINTECH 360Â° Execution Guide](docs/FINTECH_360_EXECUTION_GUIDE.md)
+- [FINTECH 360° Execution Guide](docs/FINTECH_360_EXECUTION_GUIDE.md)
 
 Run the automated test suite:
 
@@ -563,7 +563,7 @@ Potential extensions to the platform include:
 
 # Disclaimer
 
-FINTECH 360Â° is an educational and portfolio demonstration project.
+FINTECH 360° is an educational and portfolio demonstration project.
 
 All financial and customer datasets are synthetic. The project does not contain real customer information, actual financial transactions, or production financial records.
 
@@ -571,7 +571,7 @@ Business findings and dashboard metrics represent the synthetic datasets and sho
 
 # Author
 
-**FINTECH 360Â°**
+**FINTECH 360°**
 An end-to-end financial data engineering, analytics, and business intelligence portfolio project.
 
 **GitHub Repository:**
